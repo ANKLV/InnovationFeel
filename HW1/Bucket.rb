@@ -5,8 +5,8 @@ class Bucket
   attr_accessor :items
 
   def initialize
-	  @items = []
-  	puts @items
+    @items = []
+    puts @items
   end
 
   def add_item(item)
