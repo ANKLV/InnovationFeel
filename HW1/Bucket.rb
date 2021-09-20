@@ -17,7 +17,7 @@ class Bucket
   end
 
   def total_sum
-	  puts self.items.each.map{|el| el = PRICES[el]}.sum
+    puts self.items.each.map{|el| el = PRICES[el]}.sum
   end
 
   def +(bucket)
