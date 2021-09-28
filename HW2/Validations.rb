@@ -1,19 +1,15 @@
 module Validations
-  def validate
-    if self.class == User
-      case
-      when username.size == 0
-        raise ArgumentError.new("Name can't be blank")
-      when password.size < 8
-        raise ArgumentError.new("Password must be at least 8 characters")
-      end
-    else
-      case
-      when text.size == 0
-        raise ArgumentError.new("Message can't be blank")
-      when text.size > 280
-        raise ArgumentError.new("Maximum message size 280 characters")
-      end
+MIN_PASS_SIZE = 8
+MAX_TEXT_SIZE = 280
+
+  def validate(param)
+    case
+    when param == nil || param.size == 0
+      raise ArgumentError.new("Can't be blank")
+    when param.size < MIN_PASS_SIZE && param == @password
+      raise ArgumentError.new("Password must be at least 8 characters")
+    when param.size > MAX_TEXT_SIZE
+      raise ArgumentError.new("Maximum Message size 280 characters")
     end
     self
   end
@@ -25,9 +21,10 @@ class User
   attr_reader :username, :password
 
   def initialize(username, password)
-    self.username = username
-    self.password = password
-    self.validate
+    @username = username
+    @password = password
+    self.validate(username)
+    self.validate(password)
   end
 end
 
@@ -38,6 +35,6 @@ class Message
 
   def initialize(text)
     @text = text
-    self.validate
+    self.validate(text)
   end
 end
