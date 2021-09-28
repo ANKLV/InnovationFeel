@@ -1,6 +1,7 @@
-class Bucket
+# frozen_string_literal: true
 
-  PRICES = {bread:20, cola:10, pasta:30, beef:100, tomato:40}
+class Bucket
+  PRICES = { bread: 20, cola: 10, pasta: 30, beef: 100, tomato: 40 }.freeze
 
   attr_accessor :items
 
@@ -17,12 +18,12 @@ class Bucket
   end
 
   def total_sum
-    self.items.each.map{|el| el = PRICES[el]}.sum
+    items.map { |el| el = PRICES[el] }.sum
   end
 
-  def +(bucket)
-    self.items.concat bucket.items
-    bucket.items.clear
-    return self
+  def +(other)
+    items.concat other.items
+    other.items.clear
+    self
   end
 end
