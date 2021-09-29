@@ -22,21 +22,28 @@ class User
 
   attr_reader :username, :password
 
-  def initialize(username, password)
+  def username=(username)
     @username = username
-    @password = password
     validate(username)
+  end
+
+  def password=(password)
+    @password = password
     validate(password)
+  end
+
+  def initialize(username, password)
+    self.username = username
+    self.password = password
   end
 end
 
 class Message
   include Validations
 
-  attr_reader :text
+  attr_accessor :text
 
   def initialize(text)
-    @text = text
-    validate(text)
+    self.text = text
   end
 end
