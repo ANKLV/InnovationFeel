@@ -43,6 +43,11 @@ class Message
 
   attr_accessor :text
 
+  def text=(text)
+    @text = text
+    validate(text)
+  end
+
   def initialize(text)
     self.text = text
   end
