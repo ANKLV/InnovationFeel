@@ -1,17 +1,19 @@
+# frozen_string_literal: true
+
 require 'faraday'
 require 'csv'
 
 class CSVparser
   def self.parse_from(url)
-  	response = Faraday.get url
-    obj = ParseResponse.new
+    response = Faraday.get url
+    parse_obj = ParseResponse.new
 
-  	csv = File.open('cities.csv', 'w') { |file| file.write(response.body) }
+    File.open('cities.csv', 'w') { |file| file.write(response.body) }
 
-  	CSV.foreach('./cities.csv', headers: true) do |row|
-	    obj.list << row.to_h
-	  end
-    obj
+    CSV.foreach('./cities.csv', headers: true) do |row|
+      parse_obj.list << row.to_h
+    end
+    parse_obj
   end
 end
 
@@ -23,6 +25,6 @@ class ParseResponse
   end
 
   def search
-    self.list.select { |h| h["City"].match(/(\w+\s\w+\s\w+)/) }
+    list.select { |h| h['City'].match(/(\w+\s\w+\s\w+)/) }
   end
 end
