@@ -15,9 +15,9 @@ class CSVDownloader
 end
 
 class CSVParser
-  def self.parse(_path)
+  def self.parse(path)
     list = []
-    CSV.foreach(_path, headers: true) do |row|
+    CSV.foreach(path, headers: true) do |row|
       list << row.to_h
     end
     ParseResponse.new(list)
