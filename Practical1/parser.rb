@@ -3,28 +3,35 @@
 require 'faraday'
 require 'csv'
 
-class CSVparser
+class CSVDownloader
   def self.parse_from(url)
     response = Faraday.get url
-    parse_obj = ParseResponse.new
+
+    raise ArgumentError if response.status.to_s.match(/[4-5]\d{2}/)
 
     File.open('cities.csv', 'w') { |file| file.write(response.body) }
+   # raise TypeError if File.open('cities.csv').type != CSV
+  end
+end
 
-    CSV.foreach('./cities.csv', headers: true) do |row|
-      parse_obj.list << row.to_h
+class CSVParser
+  def self.parse(_path)
+    list = []
+    CSV.foreach(_path, headers: true) do |row|
+      list << row.to_h
     end
-    parse_obj
+    ParseResponse.new(list)
   end
 end
 
 class ParseResponse
   attr_accessor :list
 
-  def initialize
+  def initialize(list)
     @list = []
   end
 
   def search
-    list.select { |h| h['City'].match(/(\w+\s\w+\s\w+)/) }
+    list.select { |row| row['City'] =~ /[^^]\s\w+\s\w+$/ }
   end
 end
