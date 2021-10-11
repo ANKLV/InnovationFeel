@@ -4,7 +4,7 @@ require 'faraday'
 require 'csv'
 
 class CSVDownloader
-  def self.parse_from(url)
+  def self.download_from(url)
     response = Faraday.get url
 
     raise ArgumentError if response.status.to_s.match(/[4-5]\d{2}/)
@@ -28,7 +28,7 @@ class ParseResponse
   attr_accessor :list
 
   def initialize(list)
-    @list = []
+    @list = list
   end
 
   def search
