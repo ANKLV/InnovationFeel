@@ -10,7 +10,7 @@ class CSVDownloader
     raise ArgumentError if response.status.to_s.match(/[4-5]\d{2}/)
 
     File.open('cities.csv', 'w') { |file| file.write(response.body) }
-   # raise TypeError if File.open('cities.csv').type != CSV
+    # raise TypeError if File.open('cities.csv').type != CSV
   end
 end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,25 +12,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_17_231918) do
-
+ActiveRecord::Schema.define(version: 20_211_017_231_918) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "admins", force: :cascade do |t|
-    t.string "email"
-    t.string "password"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "username"
+  create_table 'admins', force: :cascade do |t|
+    t.string 'email'
+    t.string 'password'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.string 'username'
   end
 
-  create_table "posts", force: :cascade do |t|
-    t.bigint "admins_id"
-    t.string "title"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["admins_id"], name: "index_posts_on_admins_id"
+  create_table 'posts', force: :cascade do |t|
+    t.bigint 'admins_id'
+    t.string 'title'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['admins_id'], name: 'index_posts_on_admins_id'
   end
-
 end
